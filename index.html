@@ -50,11 +50,12 @@
       justify-content:center;
     }
 .third-img{
-  width: 180%;
   height: 100%;
-  object-fit: contain;
-  transform: scaleX(1.35);
+  width: 100%;
+  object-fit: contain;     /* show whole image */
+  transform: scaleX(1.35); /* stretch sideways */
 }
+
 
 
 .caption{
@@ -136,6 +137,10 @@
       box-shadow: 0 16px 30px rgba(0,0,0,.10);
       overflow:hidden;
     }
+    #page3 .big{
+  height: 300px;      /* bigger box so the whole photo fits */
+  overflow: visible;  /* allow full image to show */
+}
     .emoji{
       font-size: 72px;
       filter: drop-shadow(0 18px 30px rgba(0,0,0,.18));
