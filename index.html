@@ -23,47 +23,52 @@
         radial-gradient(circle at 20% 10%, var(--bg1), transparent 55%),
         radial-gradient(circle at 80% 15%, var(--bg2), transparent 60%),
         linear-gradient(180deg, #fff, #ffe6f0);
-      /* FIX: allow scroll, don't cut off content */
       overflow-x:hidden;
       overflow-y:auto;
     }
 
-.front-img{
-  max-width: 160px;
-  width: 100%;
-  height: auto;
-  border-radius: 16px;
-  box-shadow: 0 12px 25px rgba(0,0,0,.18);
-}
+    .front-img{
+      max-width: 160px;
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 12px 25px rgba(0,0,0,.18);
+      display:block;
+    }
 
-    
     .wrap{
       max-width: 980px;
       margin: 0 auto;
-      /* FIX: extra bottom padding so nothing gets clipped */
       padding: 18px 16px 80px;
-      /* FIX: don't force exact height; let it grow */
       min-height: 100vh;
       display:flex;
-      /* FIX: start at top so page can scroll naturally */
       align-items:flex-start;
       justify-content:center;
     }
-.third-img{
-  height: 100%;
-  width: 100%;
-  object-fit: contain;     /* show whole image */
-  transform: scaleX(1.35); /* stretch sideways */
-}
 
+    /* PAGE 3 image */
+    .third-img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;     /* show whole image */
+      transform: scaleX(1.35); /* stretch sideways */
+      display:block;
+    }
 
+    .caption{
+      margin-top: 8px;
+      font-size: 13px;
+      opacity: 0.75;
+      text-align: center;
+    }
 
-.caption{
-  margin-top: 8px;
-  font-size: 13px;
-  opacity: 0.75;
-  text-align: center;
-}
+    /* PAGE 2 image */
+    .second-img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display:block;
+    }
 
     .card{
       width:min(760px, 96vw);
@@ -137,10 +142,13 @@
       box-shadow: 0 16px 30px rgba(0,0,0,.10);
       overflow:hidden;
     }
+
+    /* bigger box on page 3 so the whole photo fits */
     #page3 .big{
-  height: 300px;      /* bigger box so the whole photo fits */
-  overflow: visible;  /* allow full image to show */
-}
+      height: 300px;
+      overflow: hidden;
+    }
+
     .emoji{
       font-size: 72px;
       filter: drop-shadow(0 18px 30px rgba(0,0,0,.18));
@@ -249,7 +257,6 @@
       opacity:.7;
     }
 
-    /* NEW: photo collage (6 photos) */
     .photo-grid{
       margin-top:16px;
       display:grid;
@@ -317,7 +324,8 @@
           <p class="sub">There is a correct answer. The voices will agree.</p>
 
           <div class="big">
-            <div class="emoji">💝</div>
+            <!-- put this image in the same folder as index.html -->
+            <img src="thinking.png" alt="thinking" class="second-img">
           </div>
 
           <div class="btnrow" id="btnArea" style="height:92px;">
@@ -334,10 +342,9 @@
           <p class="sub">Officially confirmed: you are my favorite side peice.</p>
 
           <div class="big">
-  <img src="me.png" alt="me rn" class="third-img">
-</div>
-<div class="caption">me rn btw</div>
-
+            <img src="me.png" alt="me rn" class="third-img">
+          </div>
+          <div class="caption">me rn btw</div>
 
           <div class="message">
 Happy Valentine’s Day, Ana 💗
@@ -362,14 +369,14 @@ Mike
             <div class="small">(Warning: may be extremely accurate.)</div>
           </div>
 
-          <!-- REPLACED: old 2-photo placeholders -> new collage -->
           <h2 style="text-align:center; margin-top:24px;">Our photos 💞</h2>
           <div class="photo-grid">
             <img src="photo1.jpg" alt="Ana & Mike photo 1">
             <img src="photo2.jpg" alt="Ana & Mike photo 2">
             <img src="photo3.jpg" alt="Ana & Mike photo 3">
             <img src="photo4.jpg" alt="Ana & Mike photo 4">
-            <img src="photo5.jpg" alt="Ana & Mike photo 5">
+            <!-- FIX: your repo has photo5.JPG (uppercase) -->
+            <img src="photo5.JPG" alt="Ana & Mike photo 5">
             <img src="photo6.jpg" alt="Ana & Mike photo 6">
           </div>
 
@@ -379,7 +386,6 @@ Mike
     </div>
   </div>
 
-  <!-- Optional: put "song.mp3" in same folder -->
   <audio id="music" preload="auto" loop>
     <source src="song.mp3" type="audio/mpeg" />
   </audio>
@@ -476,7 +482,7 @@ Mike
       tryPlayMusic();
       showPage(3);
       launchConfetti();
-      showRandomReason(); // start with one reason shown
+      showRandomReason();
     });
 
     function launchConfetti(){
@@ -500,35 +506,38 @@ Mike
     }
 
     // Reason generator
-const reasons = [
-  "I love your eyes.",
-  "You make me laugh without even trying.",
-  "You’re always there when I need you.",
-  "You make hard days easier just by being around.",
-  "You understand me better than most people.",
-  "You make me feel comfortable being myself.",
-  "You actually listen.",
-  "You make normal moments feel special.",
-  "I like how you take care of people you care about.",
-  "You’re easy to be around.",
-  "You’re my favorite person to talk to.",
-  "You make me laugh when I don’t feel like laughing.",
-  "You’re reliable.",
-  "You make me feel lucky in a very simple way.",
-  "You show up when it matters.",
-  "I like the way you see the world.",
-  "You make me feel calm.",
-  "You make me feel wanted.",
-  "Because you’re Ana. That’s enough."
-];
-let lastReason = -1;
+    const reasons = [
+      "I love your eyes.",
+      "You make me laugh without even trying.",
+      "You’re always there when I need you.",
+      "You make hard days easier just by being around.",
+      "You understand me better than most people.",
+      "You make me feel comfortable being myself.",
+      "You actually listen.",
+      "You make normal moments feel special.",
+      "I like how you take care of people you care about.",
+      "You’re easy to be around.",
+      "You’re my favorite person to talk to.",
+      "You make me laugh when I don’t feel like laughing.",
+      "You’re reliable.",
+      "You make me feel lucky in a very simple way.",
+      "You show up when it matters.",
+      "I like the way you see the world.",
+      "You make me feel calm.",
+      "You make me feel wanted.",
+      "Because you’re Ana. That’s enough."
+    ];
+    let lastReason = -1;
 
     function showRandomReason(){
       let idx = Math.floor(Math.random() * reasons.length);
       if (idx === lastReason && reasons.length > 1) idx = (idx + 1) % reasons.length;
       lastReason = idx;
       $("reason").textContent = reasons[idx];
-      $("reason").animate([{transform:"scale(0.98)", opacity:0.6},{transform:"scale(1)", opacity:1}], {duration:160});
+      $("reason").animate(
+        [{transform:"scale(0.98)", opacity:0.6},{transform:"scale(1)", opacity:1}],
+        {duration:160}
+      );
     }
 
     $("reasonBtn").addEventListener("click", showRandomReason);
@@ -536,4 +545,3 @@ let lastReason = -1;
   </script>
 </body>
 </html>
-
