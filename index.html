@@ -23,15 +23,20 @@
         radial-gradient(circle at 20% 10%, var(--bg1), transparent 55%),
         radial-gradient(circle at 80% 15%, var(--bg2), transparent 60%),
         linear-gradient(180deg, #fff, #ffe6f0);
-      overflow:hidden;
+      /* FIX: allow scroll, don't cut off content */
+      overflow-x:hidden;
+      overflow-y:auto;
     }
     .wrap{
       max-width: 980px;
       margin: 0 auto;
-      padding: 18px 16px 40px;
-      height: 100vh;
+      /* FIX: extra bottom padding so nothing gets clipped */
+      padding: 18px 16px 80px;
+      /* FIX: don't force exact height; let it grow */
+      min-height: 100vh;
       display:flex;
-      align-items:center;
+      /* FIX: start at top so page can scroll naturally */
+      align-items:flex-start;
       justify-content:center;
     }
     .card{
@@ -44,6 +49,7 @@
       backdrop-filter: blur(10px);
       position:relative;
       overflow:hidden;
+      margin-top: 14px;
     }
     .top{
       display:flex;
@@ -213,25 +219,22 @@
       opacity:.7;
     }
 
-    .gallery{
-      margin-top:12px;
+    /* NEW: photo collage (6 photos) */
+    .photo-grid{
+      margin-top:16px;
       display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap:12px;
     }
-    .ph{
-      border-radius: 18px;
-      border: 1px dashed rgba(255,59,122,.45);
-      background: #fff;
-      height: 160px;
-      display:grid;
-      place-items:center;
-      color: rgba(255,59,122,.85);
-      font-weight:900;
-      overflow:hidden;
-      position:relative;
+    .photo-grid img{
+      width:100%;
+      height:240px;
+      object-fit:cover;
+      border-radius:18px;
+      box-shadow: 0 12px 25px rgba(0,0,0,.15);
+      display:block;
+      background:#fff;
     }
-    .ph img{width:100%;height:100%;object-fit:cover;display:block}
 
     .footer{
       text-align:center;
@@ -327,9 +330,15 @@ Mike
             <div class="small">(Warning: may be extremely accurate.)</div>
           </div>
 
-          <div class="gallery">
-            <div class="ph"><img id="img1" alt="photo 1 (optional)"></div>
-            <div class="ph"><img id="img2" alt="photo 2 (optional)"></div>
+          <!-- REPLACED: old 2-photo placeholders -> new collage -->
+          <h2 style="text-align:center; margin-top:24px;">Our photos 💞</h2>
+          <div class="photo-grid">
+            <img src="photo1.jpg" alt="Ana & Mike photo 1">
+            <img src="photo2.jpg" alt="Ana & Mike photo 2">
+            <img src="photo3.jpg" alt="Ana & Mike photo 3">
+            <img src="photo4.jpg" alt="Ana & Mike photo 4">
+            <img src="photo5.jpg" alt="Ana & Mike photo 5">
+            <img src="photo6.jpg" alt="Ana & Mike photo 6">
           </div>
 
           <div class="footer">Made by Mike (professional baddie) 💘</div>
@@ -349,17 +358,6 @@ Mike
     // Date badge
     const d = new Date();
     $("dateBadge").textContent = `Feb 14, ${d.getFullYear()}`;
-
-    // Optional photos: name them photo1.jpg and photo2.jpg in same folder
-    function tryLoad(imgEl, src){
-      imgEl.src = src;
-      imgEl.onerror = () => {
-        imgEl.removeAttribute("src");
-        imgEl.parentElement.textContent = "Add photo here";
-      };
-    }
-    tryLoad($("img1"), "photo1.jpg");
-    tryLoad($("img2"), "photo2.jpg");
 
     // Pages
     function showPage(n){
@@ -470,19 +468,28 @@ Mike
     }
 
     // Reason generator
-    const reasons = [
-      "You have the kind of smile that makes me smile too😌",
-      "You make boring days feel like nothing.",
-      "You’re cute AND you’re a real person ifykyk",
-      "You’re my favorite crybaby.",
-      "You laugh in a way that makes me want to laugh too.",
-      "You’re sweet, but also slightly scary. 💘",
-      "You’re my favorite place to be even when we’re doing nothing.",
-      "Because you’re Ana That’s literally enough.",
-      "You’re my favorite person to share food with.",
-      "You’re cute, funny, and somehow still easily ragebaitable."
-    ];
-    let lastReason = -1;
+const reasons = [
+  "I love your eyes.",
+  "You make me laugh without even trying.",
+  "You’re always there when I need you.",
+  "You make hard days easier just by being around.",
+  "You understand me better than most people.",
+  "You make me feel comfortable being myself.",
+  "You actually listen.",
+  "You make normal moments feel special.",
+  "I like how you take care of people you care about.",
+  "You’re easy to be around.",
+  "You’re my favorite person to talk to.",
+  "You make me laugh when I don’t feel like laughing.",
+  "You’re reliable.",
+  "You make me feel lucky in a very simple way.",
+  "You show up when it matters.",
+  "I like the way you see the world.",
+  "You make me feel calm.",
+  "You make me feel wanted.",
+  "Because you’re Ana. That’s enough."
+];
+let lastReason = -1;
 
     function showRandomReason(){
       let idx = Math.floor(Math.random() * reasons.length);
@@ -497,3 +504,4 @@ Mike
   </script>
 </body>
 </html>
+
