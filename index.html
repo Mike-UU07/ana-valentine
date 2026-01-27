@@ -46,12 +46,24 @@
       justify-content:center;
     }
 
-    /* PAGE 3 image */
+    /* Page 2 monkey */
+    .second-img{
+      max-width: 100%;
+      max-height: 180px; /* fits inside .big */
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display:block;
+    }
+
+    /* Page 3 rod */
     .third-img{
-      width: 100%;
-      height: 100%;
-      object-fit: contain;     /* show whole image */
-      transform: scaleX(1.35); /* stretch sideways */
+      max-width: 100%;
+      max-height: 280px; /* allow full visibility */
+      width: auto;
+      height: auto;
+      object-fit: contain;      /* show whole image */
+      transform: scaleX(1.25);  /* stretch sideways */
       display:block;
     }
 
@@ -60,14 +72,6 @@
       font-size: 13px;
       opacity: 0.75;
       text-align: center;
-    }
-
-    /* PAGE 2 image */
-    .second-img{
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display:block;
     }
 
     .card{
@@ -82,6 +86,7 @@
       overflow:hidden;
       margin-top: 14px;
     }
+
     .top{
       display:flex;
       align-items:center;
@@ -129,6 +134,7 @@
     }
     .page{display:none; width:100%;}
     .page.active{display:block;}
+
     .big{
       display:grid;
       place-items:center;
@@ -143,10 +149,10 @@
       overflow:hidden;
     }
 
-    /* bigger box on page 3 so the whole photo fits */
+    /* Page 3: bigger box so image fits fully */
     #page3 .big{
       height: 300px;
-      overflow: hidden;
+      overflow:hidden; /* keep the nice rounded frame */
     }
 
     .emoji{
@@ -155,6 +161,7 @@
       animation: float 3s ease-in-out infinite;
     }
     @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
     .btnrow{
       margin-top: 14px;
       display:flex;
@@ -291,6 +298,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="confetti" id="confetti"></div>
 
@@ -324,8 +332,8 @@
           <p class="sub">There is a correct answer. The voices will agree.</p>
 
           <div class="big">
-            <!-- put this image in the same folder as index.html -->
-            <img src="thinking.png" alt="thinking" class="second-img">
+            <!-- ✅ monkey image (rename file to thinking.png OR change src here) -->
+            <img src="thinking.png" alt="thinking monkey" class="second-img">
           </div>
 
           <div class="btnrow" id="btnArea" style="height:92px;">
@@ -375,7 +383,7 @@ Mike
             <img src="photo2.jpg" alt="Ana & Mike photo 2">
             <img src="photo3.jpg" alt="Ana & Mike photo 3">
             <img src="photo4.jpg" alt="Ana & Mike photo 4">
-            <!-- FIX: your repo has photo5.JPG (uppercase) -->
+            <!-- ✅ FIX: your repo has photo5.JPG (uppercase) -->
             <img src="photo5.JPG" alt="Ana & Mike photo 5">
             <img src="photo6.jpg" alt="Ana & Mike photo 6">
           </div>
@@ -386,6 +394,7 @@ Mike
     </div>
   </div>
 
+  <!-- Optional: put "song.mp3" in same folder -->
   <audio id="music" preload="auto" loop>
     <source src="song.mp3" type="audio/mpeg" />
   </audio>
@@ -534,10 +543,7 @@ Mike
       if (idx === lastReason && reasons.length > 1) idx = (idx + 1) % reasons.length;
       lastReason = idx;
       $("reason").textContent = reasons[idx];
-      $("reason").animate(
-        [{transform:"scale(0.98)", opacity:0.6},{transform:"scale(1)", opacity:1}],
-        {duration:160}
-      );
+      $("reason").animate([{transform:"scale(0.98)", opacity:0.6},{transform:"scale(1)", opacity:1}], {duration:160});
     }
 
     $("reasonBtn").addEventListener("click", showRandomReason);
